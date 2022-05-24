@@ -37,9 +37,17 @@ Problemas:
   }
 ]
 ```
-
+#### Tempo  <br>
+[![wakatime](https://wakatime.com/badge/user/9a8a09fe-e65e-451a-808b-39b2ac167b77/project/97ed2cf3-5151-485c-86fe-896b2b0e6cbd.svg)](https://wakatime.com/badge/user/9a8a09fe-e65e-451a-808b-39b2ac167b77/project/97ed2cf3-5151-485c-86fe-896b2b0e6cbd)
+<img src="public/img_1.png">
+<img src="public/img_2.png">
+<img src="public/img_3.png">
+<img src="public/img_4.png">
+<img src="public/img.png">
 Estes links me ajudaram no processo <br>
 Referências:
 * Validar cep https://www.facebook.com/emersonbrogadev/posts/511629469645910/
 * O que é o cep? https://www.significados.com.br/cep/
 * ViaCEP https://viacep.com.br/
+
+
