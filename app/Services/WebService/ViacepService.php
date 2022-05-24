@@ -55,7 +55,7 @@ class ViacepService implements CepInterface
         $url = $this->endpoint.$cep.'/json/';
         return Cache::remember("cep_$cep", 60,
             function () use ($url) {
-                return Http::get($url);
+                return Http::get($url)->json();
             });
     }
 
