@@ -29,7 +29,7 @@ class CepController extends Controller
      */
     public function index(CepRequest $request){
         $service = $this->service->findManyByCep($request->input("ceps"));
-        return response()->json(CepResource::collection(collect($service)));
+        return response()->json(CepResource::collection(collect($service)->sortByDesc('cep')));
 
     }
 }
