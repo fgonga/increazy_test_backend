@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\CepRequest;
+use App\Http\Resources\CepResource;
 use App\Services\WebService\ViacepService;
 use Illuminate\Http\JsonResponse;
-
 /**
  * Cep Controller
  */
@@ -28,6 +28,8 @@ class CepController extends Controller
      * @return JsonResponse
      */
     public function index(CepRequest $request){
-        return response()->json($this->service->findManyByCep($request->input("ceps")));
+        $service = $this->service->findManyByCep($request->input("ceps"));
+        return response()->json(CepResource::collection(collect($service)));
+
     }
 }

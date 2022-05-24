@@ -20,9 +20,10 @@ class CepRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->replace([
-            'ceps' => explode(",", $this->ceps),
+            'ceps' => explode(",", $this->ceps)
         ]);
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,11 +32,7 @@ class CepRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ceps' => ['required'],
-            'ceps.*' => [
-                /*TODO - Ao validar apresenta ERR_TOO_MANY_REDIRECTS URGENTE*/
-                // new CepRule()
-            ]
+            'ceps' => ['required']
         ];
     }
 }

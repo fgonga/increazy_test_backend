@@ -16,6 +16,21 @@ class ViacepService implements CepInterface
      */
     public $endpoint = 'https://viacep.com.br/ws/';
 
+    public function validate($cep):bool{
+        return preg_match('/^\d{2}\.?\d{3}-\d{3}$/', $cep) > 0;
+    }
+
+    private function prepate($ceps): array
+    {
+        $validateCeps = [];
+        foreach ($ceps as $i => $cep){
+            $ceps[$i] = preg_replace('/[^0-9]/', '', $cep);
+            $ceps[$i] = preg_replace('/([0-9]{5})([0-9]{3})/', '$1-$2',  $ceps[$i]);
+            $this->validate($ceps[$i]) ? $validateCeps[] = $ceps[$i] : null;
+        }
+
+        return $validateCeps;
+    }
     /**
      * @param array $ceps
      * @return array
@@ -23,11 +38,11 @@ class ViacepService implements CepInterface
      */
     public function findManyByCep(array $ceps): array
     {
-        $result = [];
-        foreach ($ceps as $cep){
-            $result[] = $this->findOneByCep($cep);
+        $ceps = $this->prepate($ceps);
+        foreach ($ceps as $i => $cep){
+            $ceps[$i] = $this->findOneByCep($cep);
         }
-        return $result;
+        return $ceps;
     }
 
     /**
@@ -38,7 +53,7 @@ class ViacepService implements CepInterface
     public function findOneByCep(string $cep): array
     {
         $url = $this->endpoint.$cep.'/json/';
-        return Cache::remember("cep_$cep", 1,
+        return Cache::remember("cep_$cep", 60,
             function () use ($url) {
                 $pre = Http::get($url)->json();
                 $pre['label'] = $pre['logradouro'].', '.$pre["localidade"];
