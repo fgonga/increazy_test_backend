@@ -38,9 +38,11 @@ class ViacepService implements CepInterface
     public function findOneByCep(string $cep): array
     {
         $url = $this->endpoint.$cep.'/json/';
-        return Cache::remember("cep_$cep", 60,
+        return Cache::remember("cep_$cep", 1,
             function () use ($url) {
-                return Http::get($url)->json();
+                $pre = Http::get($url)->json();
+                $pre['label'] = $pre['logradouro'].', '.$pre["localidade"];
+                return $pre;
             });
     }
 
