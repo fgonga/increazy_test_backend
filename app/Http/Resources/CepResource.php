@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class CepResource extends JsonResource
 {
@@ -16,7 +17,7 @@ class CepResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            "cep"=> $this->resource['cep'],
+            "cep"=> Str::replace("-", "", $this->resource['cep']),
             "label"=> $this->resource['logradouro'].', '.$this->resource['localidade'],
             "logradouro"=> $this->resource['logradouro'],
             "complemento"=> $this->resource['complemento'],
